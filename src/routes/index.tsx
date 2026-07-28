@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import sathvikaAsset from "@/assets/sathvika.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
