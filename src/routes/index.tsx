@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import sathvikaAsset from "@/assets/sathvika.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -159,20 +160,17 @@ function Nav() {
 function Monogram() {
   return (
     <figure className="relative overflow-hidden rounded-sm border border-rule bg-card">
-      <div className="flex aspect-[4/5] w-full flex-col items-center justify-center px-6 py-10">
-        <span className="eyebrow">Aluboju Sathvika</span>
-        <span
-          className="serif mt-4 leading-none italic"
-          style={{ fontSize: "clamp(6rem, 22vw, 12rem)" }}
-        >
-          A<span className="text-accent">·</span>S
-        </span>
-        <span className="eyebrow mt-6">CSE — AI &amp; ML</span>
-        <div className="mt-8 flex w-full items-center justify-between text-[10px] uppercase tracking-[0.22em] text-ink-soft">
-          <span>Warangal</span>
-          <span>Telangana · IN</span>
-        </div>
-      </div>
+      <img
+        src={sathvikaAsset.url}
+        alt="Portrait of Aluboju Sathvika"
+        width={1024}
+        height={1280}
+        className="aspect-[4/5] w-full object-cover"
+      />
+      <figcaption className="absolute bottom-3 left-3 right-3 flex justify-between text-[10px] uppercase tracking-[0.22em] text-background/95 mix-blend-difference">
+        <span>Aluboju Sathvika</span>
+        <span>Warangal, IN</span>
+      </figcaption>
     </figure>
   );
 }
