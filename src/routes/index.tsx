@@ -407,17 +407,30 @@ function Resume() {
 }
 
 function Contact() {
-  const [sent, setSent] = useState(false);
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = useServerFn(submitContactMessage);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const name = String(f.get("name") ?? "");
-    const email = String(f.get("email") ?? "");
-    const message = String(f.get("message") ?? "");
-    const subject = encodeURIComponent(`Portfolio inquiry — ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-    window.location.href = `mailto:alubojusathwika@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      await submit({
+        data: {
+          name: String(f.get("name") ?? ""),
+          email: String(f.get("email") ?? ""),
+          message: String(f.get("message") ?? ""),
+        },
+      });
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+    }
   };
 
   return (
