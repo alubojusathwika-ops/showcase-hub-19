@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 import sathvikaAsset from "@/assets/sathvika.jpg.asset.json";
+import { submitContactMessage } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
