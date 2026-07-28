@@ -481,15 +481,24 @@ function Contact() {
               as="textarea"
               required
             />
-            <div className="flex items-center justify-between pt-2">
+            <div className="flex items-center justify-between gap-4 pt-2">
               <p className="text-xs text-ink-soft">
-                I usually reply within a couple of days.
+                {status === "sent"
+                  ? "Thanks — your message was sent."
+                  : status === "error"
+                    ? errorMsg || "Something went wrong."
+                    : "I usually reply within a couple of days."}
               </p>
               <button
                 type="submit"
-                className="rounded-full bg-foreground px-6 py-3 text-sm text-background transition-transform hover:-translate-y-0.5"
+                disabled={status === "sending"}
+                className="rounded-full bg-foreground px-6 py-3 text-sm text-background transition-transform hover:-translate-y-0.5 disabled:opacity-60"
               >
-                {sent ? "Opening mail…" : "Send message →"}
+                {status === "sending"
+                  ? "Sending…"
+                  : status === "sent"
+                    ? "Sent ✓"
+                    : "Send message →"}
               </button>
             </div>
           </div>
